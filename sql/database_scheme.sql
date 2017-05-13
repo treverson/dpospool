@@ -2,15 +2,6 @@
 -- Table structure for table `voters`
 --
 
-CREATE TABLE IF NOT EXISTS settings (
-  key varchar NOT NULL,
-  value varchar
-);
-
---
--- Table structure for table `voters`
---
-
 CREATE TABLE IF NOT EXISTS voters (
   id SERIAL PRIMARY KEY,
   address varchar NOT NULL,
