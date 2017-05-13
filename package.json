@@ -1,0 +1,31 @@
+{
+  "name": "DPoSPool",
+  "version": "1.0.0",
+  "description": "DPoS forging pool",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "forever": "^0.15.3",
+    "pg-promise": "^5.6.4",
+    "request": "^2.79.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ShineKami/dpospool.git"
+  },
+  "keywords": [
+    "Lisk",
+    "blockchain",
+    "forging",
+    "pool",
+    "crypto",
+    "dpos",
+    "dpospool"
+  ],
+  "author": "Stanislav Vyshynskiy (ShineKami)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ShineKami/dpospool/issues"
+  },
+  "homepage": "https://github.com/ShineKami/dpospool#readme"
+}

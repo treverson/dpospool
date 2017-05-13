@@ -1,0 +1,8 @@
+logs/*.log
+pids/*.pid
+public
+pgsql/data
+node_modules
+
+public_src/bower_components
+public_src/node_modules
