@@ -5,7 +5,7 @@ Donnations: 5648883430033121919L
 
 #Requirements
 
-- Node<br>
+- NodeJS, Bower, Gulp<br>
 - Git<br>
 - Crontab<br>
 
