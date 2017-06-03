@@ -1,6 +1,6 @@
 {
 	"node": {
-		"host": "83.136.249.129",
+		"host": "Node address",
 		"port": 7000,
 		"protocol": "http",
 		"network": "testnet"
@@ -24,14 +24,14 @@
 		"showmore": 5,
 		"network_fees": 0,
 		"pool_fees": 20,
-		"withdrawal_time": 21600,
-		"withdrawal_tx_delay": 3000,
+		"withdrawal_time": 43200,
+		"withdrawal_tx_delay": 5,
 		"withdrawal_min": 5,
 		"withdrawal_pool_fees": [{
-				"address": "1230858454988345157L",
+				"address": "You fees withdrawal address",
 				"percent": 70
 		},{
-				"address": "110127297781442763L",
+				"address": "You fees withdrawal address",
 				"percent": 30
 		}]
 	}

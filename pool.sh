@@ -35,7 +35,7 @@ DB_PORT="$(grep "dbport" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_DATA="$(pwd)/pgsql/data"
 DB_CONFIG="$(pwd)/pgsql/pgsql.conf"
 
-CMDS=("node" "crontab")
+CMDS=("node" "crontab" "curl")
 CMDS1=("forever" "psql" "createdb" "createuser" "dropdb" "dropuser")
 check_cmds CMDS[@]
 
@@ -93,7 +93,7 @@ stop_postgresql() {
     echo "√ $SCRIPT_NAME database is not running."
   fi
 }
-dump_db() {
+backup_db() {
   if [ -f $PID_DB_FILEL ]; then
     pg_dump -p $DB_PORT $DB_NAME > "sql/"$DB_NAME"_dump.sql"
     sleep 1
@@ -107,21 +107,25 @@ dump_db() {
     echo "√ $SCRIPT_NAME database is not running."
   fi
 }
+restore_db() {
+  if [ -f $PID_DB_FILEL ]; then
+    pg_restore -p $DB_PORT $DB_NAME < "sql/"$DB_NAME"_dump.sql"
+    sleep 1
+    if [ $? != 0 ]; then
+      echo "X Failed to restore $SCRIPT_NAME database."
+      exit 1
+    else
+      echo "√ $SCRIPT_NAME database restore successfully."
+    fi
+  else
+    echo "√ $SCRIPT_NAME database is not running."
+  fi
+}
 
 #App
 install_pool() {
   echo "#####$SCRIPT_NAME Installation#####"
   echo " * Installation may take several minutes"
-  #cd public_src
-  #bower install &> /dev/null
-  #npm install &> /dev/null
-  #gulp release &> /dev/null
-  #cd ..
-  #rm -rf public_src
-  #echo "√ Compile template."
-  #rm -rf node_modules
-  #npm install &> /dev/null
-  #echo "√ Install dependencies."
   check_cmds CMDS1[@]
   echo "√ Check using commands."
   stop_pool &> /dev/null
@@ -243,7 +247,8 @@ help() {
   echo -e "start_db     - Start the $SCRIPT_NAME database"
   echo -e "stop_db      - Stop the $SCRIPT_NAME database"
   echo -e "reset_db     - Re-create the $SCRIPT_NAME database"
-  echo -e "backup_db    - Backup $SCRIPT_NAME database to 'sql' folder \n" 
+  echo -e "backup_db    - Backup $SCRIPT_NAME database to 'sql' folder"
+  echo -e "restore_db   - Restore $SCRIPT_NAME database from 'sql' folder(restore db file "$SCRIPT_NAME"_dump.sql) \n" 
 }
 
 #All commands
@@ -287,7 +292,12 @@ case $1 in
   "backup_db")
     start_postgresql
     sleep 2
-    dump_db
+    backup_db
+    ;;
+  "restore_db")
+    start_postgresql
+    sleep 2
+    restore_db
     ;;
 	"status")
 	  check_status
@@ -301,7 +311,7 @@ case $1 in
 	*)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: start stop start_node stop_node start_db stop_db reload coldstart logs status help"
+  echo "Available commands are: install|start|stop|reload|logs|status|help|start_node|stop_node|start_db|stop_db|backup_db|restore_db"
   help
   ;;
 esac

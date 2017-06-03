@@ -5,6 +5,9 @@ var pgp = require("pg-promise")();
 function Pool(){
   var _this = this;
 
+  //Connet to PostgesDB
+  this.db = pgp("postgres://"+config.db.dbuser+":"+config.db.dbpass+"@"+config.db.dbhost+":"+config.db.dbport+"/"+config.db.dbname);  
+
   //Other
   this.last_block = 0;
 
@@ -24,9 +27,6 @@ function Pool(){
   this.approval = null;
   this.total_lskvote = null;
   this.voters = null;
-
-  //Connet to PostgesDB
-  this.db = pgp("postgres://"+config.db.dbuser+":"+config.db.dbpass+"@"+config.db.dbhost+":"+config.db.dbport+"/"+config.db.dbname);
 
   //Get delegate data and base statistics
   this.get_delegateInfo(function(){
@@ -393,7 +393,7 @@ Pool.prototype.Withdrawal = function(){
                 _this.log("ERR", error.syscall+" "+error.code+" "+error.address+":"+error.port);
               }
             });
-          }, config.pool.withdrawal_tx_delay);
+          }, i * config.pool.withdrawal_tx_delay * 1000);
         })(rdata[i]);
       }
     } else {
@@ -446,7 +446,7 @@ Pool.prototype.Withdrawal = function(){
                 _this.log("ERR", error.syscall+" "+error.code+" "+error.address+":"+error.port);
               }
             });
-          }, config.pool.withdrawal_tx_delay);
+          }, i * config.pool.withdrawal_tx_delay * 1000);
         })(rdata[i]);
       }
     } else {
