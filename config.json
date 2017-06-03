@@ -22,7 +22,7 @@
 		"port": 3000,
 		"minvote": 100,
 		"showmore": 5,
-		"network_fees": 0,
+		"network_fees": 50,
 		"pool_fees": 20,
 		"withdrawal_time": 43200,
 		"withdrawal_tx_delay": 5,

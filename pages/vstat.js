@@ -34,7 +34,7 @@ router.get('/address/:address', function (req, res) {
     data.id = rdata.id;
 
     var withdrawal = [];
-    pool.db.any("SELECT * FROM withdrawal_history WHERE voter_id='"+data.voter_id+"' LIMIT 50")
+    pool.db.any("SELECT * FROM withdrawal_history WHERE voter_id='"+data.voter_id+"' ORDER BY timestamp DESC LIMIT 50")
     .then(rdata => {
       if(rdata.length){
         for(var i=0; i<rdata.length; i++){
